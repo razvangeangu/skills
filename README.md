@@ -1,8 +1,28 @@
 # skills
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+![Skill count](https://img.shields.io/badge/skills-10-blue)
+[![Lint](https://github.com/razvangeangu/skills/actions/workflows/lint.yml/badge.svg)](https://github.com/razvangeangu/skills/actions/workflows/lint.yml)
+
 A personal, portable library of [Claude Code](https://claude.com/claude-code)
 skills — conventions and workflows worth reusing across projects, at work,
 or sharing with other devs.
+
+## What is a skill?
+
+A skill is a markdown file (`SKILL.md`) with a small YAML header —
+`name` and `description` — followed by whatever guidance an AI coding agent
+needs to do a specific job well: a checklist, a set of conventions, a
+worked example, a list of things to avoid. The `description` field doubles
+as the trigger: Claude Code reads it to decide whether a skill is relevant
+to what you're currently asking for, and pulls in the full body only when
+it is. That keeps a large library of skills cheap to keep around — nothing
+loads until it's actually needed.
+
+Skills are portable by design. The same `SKILL.md` format works whether
+it's sitting in this repo, in a project's `.claude/skills/`, or in a
+project's `.agents/skills/` — see [Using a skill elsewhere](#using-a-skill-elsewhere)
+below.
 
 ## Layout
 
@@ -56,3 +76,13 @@ cp -r skills/repo-hygiene /path/to/project/.claude/skills/
 # or
 ln -s "$(pwd)/skills/repo-hygiene" /path/to/project/.claude/skills/repo-hygiene
 ```
+
+## Contributing
+
+Adding a skill or improving one? See [CONTRIBUTING.md](CONTRIBUTING.md) for
+the format conventions and a pre-PR checklist. A GitHub Action lints every
+`SKILL.md`'s frontmatter on push and PR.
+
+## License
+
+[MIT](LICENSE)
