@@ -4,9 +4,8 @@
 ![Skill count](https://img.shields.io/badge/skills-15-blue)
 [![Lint](https://github.com/razvangeangu/skills/actions/workflows/lint.yml/badge.svg)](https://github.com/razvangeangu/skills/actions/workflows/lint.yml)
 
-A personal, portable library of [Claude Code](https://claude.com/claude-code)
-skills — conventions and workflows worth reusing across projects, at work,
-or sharing with other devs.
+A personal, portable library of agent skills — conventions and workflows worth
+reusing across projects, models, and coding harnesses.
 
 ## What is a skill?
 
@@ -14,15 +13,14 @@ A skill is a markdown file (`SKILL.md`) with a small YAML header —
 `name` and `description` — followed by whatever guidance an AI coding agent
 needs to do a specific job well: a checklist, a set of conventions, a
 worked example, a list of things to avoid. The `description` field doubles
-as the trigger: Claude Code reads it to decide whether a skill is relevant
-to what you're currently asking for, and pulls in the full body only when
-it is. That keeps a large library of skills cheap to keep around — nothing
-loads until it's actually needed.
+as the trigger: the harness uses it to decide whether a skill is relevant
+to the current request, and loads the full body only when it is. That keeps
+a large library cheap to keep around — nothing loads until it's needed.
 
-Skills are portable by design. The same `SKILL.md` format works whether
-it's sitting in this repo, in a project's `.claude/skills/`, or in a
-project's `.agents/skills/` — see [Using a skill elsewhere](#using-a-skill-elsewhere)
-below.
+Skills are **model-agnostic** and **harness-portable**. This repo's canonical
+project install path is `.agents/skills/`. The same `SKILL.md` files work
+unchanged in harnesses that already understand that layout; for harnesses
+that expect a different folder, use a [port](ports/README.md).
 
 ## Layout
 
@@ -32,11 +30,8 @@ Flat directory, one skill per folder:
 skills/<skill-name>/SKILL.md
 ```
 
-Each `SKILL.md` uses the standard skill format: YAML frontmatter (`name`,
-`description`) followed by a markdown body. This is the same format Claude
-Code reads from `.claude/skills/` and the `npx skills` CLI reads from its
-own registry — a skill here can be copied or symlinked straight into any
-project's `.claude/skills/` (or `.agents/skills/`) without conversion.
+Optional harness adapters live under [`ports/`](ports/README.md). Skill
+bodies stay free of vendor-specific install paths.
 
 Skills here are triggered, situational guidance (composition patterns,
 distribution workflows, audit checklists). Small always-on constraints that
@@ -83,13 +78,32 @@ ones.
 
 ## Using a skill elsewhere
 
-Copy or symlink the folder into the target project:
+Canonical install (any harness that reads `.agents/skills/`):
 
 ```bash
-cp -r skills/repo-hygiene /path/to/project/.claude/skills/
-# or
-ln -s "$(pwd)/skills/repo-hygiene" /path/to/project/.claude/skills/repo-hygiene
+./scripts/install-skill.sh repo-hygiene /path/to/project
+# same as:
+./scripts/install-skill.sh repo-hygiene /path/to/project --port agents
 ```
+
+For harnesses that expect a different directory, pass a port (see
+[ports/README.md](ports/README.md)):
+
+```bash
+./scripts/install-skill.sh repo-hygiene /path/to/project --port cursor
+./scripts/install-skill.sh repo-hygiene /path/to/project --port claude
+```
+
+Or symlink by hand:
+
+```bash
+mkdir -p /path/to/project/.agents/skills
+ln -s "$(pwd)/skills/repo-hygiene" /path/to/project/.agents/skills/repo-hygiene
+```
+
+Project agent front door: prefer a single `AGENTS.md` at the repo root. If a
+harness only loads a vendor-named file, add a port shim (symlink) rather than
+duplicating content — see [ports/README.md](ports/README.md).
 
 ## Contributing
 

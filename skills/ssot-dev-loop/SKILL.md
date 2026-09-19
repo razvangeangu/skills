@@ -32,7 +32,9 @@ SSOT loop:
 
 ### 0. Orient
 
-1. Open `AGENTS.md` / `CLAUDE.md` if present — follow its SoT map.
+1. Open `AGENTS.md` if present — follow its SoT map. (If a harness only
+   loads a vendor-named file, that file should be a symlink to `AGENTS.md`;
+   see this repo's `ports/README.md`.)
 2. Locate the feature's one-pager, fixtures, and core package
    (`tools/<cli> scope <path>` when the project has a scope verb).
 3. If no parity layout exists yet, propose adopting [`core-spec`](../core-spec)

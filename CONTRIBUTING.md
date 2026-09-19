@@ -27,6 +27,12 @@
      look" section pointing at real file paths (or a placeholder pattern
      like `apps/web/src/...` when the skill is stack-specific but
      project-agnostic).
+   - Stay **harness-agnostic**: do not hard-code `.claude/`, `.cursor/`, or
+     vendor product names in skill bodies. Canonical project skill path is
+     `.agents/skills/`. Vendor install folders belong in
+     [ports/README.md](ports/README.md), not in skill prose.
+   - Prefer `AGENTS.md` when pointing at a project's agent front door. Do
+     not tell agents to maintain a parallel vendor-named copy.
 
 3. If the skill needs supporting files (a reference doc, a checklist,
    images), put them alongside `SKILL.md` in the same folder and link to
@@ -34,13 +40,15 @@
 
 ## Generalizing a skill from a real project
 
-Most skills here started life as a project-specific `.agents/skills/` or
-`.claude/skills/` file. When porting one in:
+Most skills here started life as a project-specific `.agents/skills/` file
+(or a harness-port of that path). When porting one in:
 
 - Strip client/project names, brand tokens, and business-specific paths.
   Replace concrete package names with a placeholder pattern
   (`@myorg/ui` instead of `@vidra/ui`) and note where the project should
   adjust it.
+- Strip harness/vendor install paths; document them under `ports/` if the
+  target tooling cannot read `.agents/skills/` by default.
 - Keep the underlying mechanics — the whole point is the pattern, not a
   sanitized restatement.
 - Cross-check "Related skills" sections still point at names that exist in
@@ -67,5 +75,9 @@ simple rule into workflow-shaped prose just to match other skills' length.
 
 - [ ] `SKILL.md` has valid YAML frontmatter with `name` and `description`
 - [ ] No leftover client/project-specific names, URLs, or IDs
+- [ ] No harness-specific install paths in skill bodies (use `.agents/` or
+      point at `ports/`)
 - [ ] Cross-references to other skills use this repo's actual folder names
 - [ ] Added to the table in `README.md`
+- [ ] New harness ports (if any) documented in `ports/README.md` and wired
+      in `scripts/install-skill.sh`
