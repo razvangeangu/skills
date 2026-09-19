@@ -78,32 +78,25 @@ ones.
 
 ## Using a skill elsewhere
 
-Canonical install (any harness that reads `.agents/skills/`):
+Canonical install — project SSOT is always `.agents/skills/`:
 
 ```bash
 ./scripts/install-skill.sh repo-hygiene /path/to/project
-# same as:
-./scripts/install-skill.sh repo-hygiene /path/to/project --port agents
 ```
 
-For harnesses that expect a different directory, pass a port (see
-[ports/README.md](ports/README.md)):
+Other harnesses get **symlink ports** onto that SSOT (never a second copy):
 
 ```bash
 ./scripts/install-skill.sh repo-hygiene /path/to/project --port cursor
 ./scripts/install-skill.sh repo-hygiene /path/to/project --port claude
+./scripts/install-skill.sh repo-hygiene /path/to/project --port all
+./scripts/verify-ports.sh /path/to/project --strict
 ```
 
-Or symlink by hand:
+See [ports/README.md](ports/README.md) for the one-source-of-truth layout.
 
-```bash
-mkdir -p /path/to/project/.agents/skills
-ln -s "$(pwd)/skills/repo-hygiene" /path/to/project/.agents/skills/repo-hygiene
-```
-
-Project agent front door: prefer a single `AGENTS.md` at the repo root. If a
-harness only loads a vendor-named file, add a port shim (symlink) rather than
-duplicating content — see [ports/README.md](ports/README.md).
+Project agent front door: prefer a single `AGENTS.md`. If a harness only loads
+a vendor-named file, symlink it to `AGENTS.md` — do not duplicate content.
 
 ## Contributing
 

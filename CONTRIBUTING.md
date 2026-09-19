@@ -79,5 +79,6 @@ simple rule into workflow-shaped prose just to match other skills' length.
       point at `ports/`)
 - [ ] Cross-references to other skills use this repo's actual folder names
 - [ ] Added to the table in `README.md`
-- [ ] New harness ports (if any) documented in `ports/README.md` and wired
-      in `scripts/install-skill.sh`
+- [ ] New harness ports (if any) documented in `ports/README.md`, wired in
+      `scripts/install-skill.sh`, and covered by `scripts/verify-ports.sh`
+- [ ] Ports remain symlinks to `.agents/skills/` — no copied skill trees
