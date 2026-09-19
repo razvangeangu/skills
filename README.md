@@ -1,7 +1,7 @@
 # skills
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-![Skill count](https://img.shields.io/badge/skills-10-blue)
+![Skill count](https://img.shields.io/badge/skills-15-blue)
 [![Lint](https://github.com/razvangeangu/skills/actions/workflows/lint.yml/badge.svg)](https://github.com/razvangeangu/skills/actions/workflows/lint.yml)
 
 A personal, portable library of [Claude Code](https://claude.com/claude-code)
@@ -51,7 +51,12 @@ and unconditional on purpose.
 | --- | --- |
 | [`repo-hygiene`](skills/repo-hygiene) | Definition-of-done checklist: lint/format, git hooks, documenting suppressions |
 | [`copy-style`](skills/copy-style) | No Oxford comma, no em dash, in user-facing copy |
+| [`no-code-comments`](skills/no-code-comments) | Never write explanatory code comments; prefer clear names |
 | [`anti-vibe-ui`](skills/anti-vibe-ui) | Ban list + audit checklist against the AI-slop UI fingerprint |
+| [`core-spec`](skills/core-spec) | Language-neutral SSOT: one-pagers, schemas, golden behavior recordings, manifest |
+| [`ssot-dev-loop`](skills/ssot-dev-loop) | Mandatory process: core before UI, regenerate products, verify, then shell |
+| [`parity-gates`](skills/parity-gates) | Local=CI verification; drift / empty-test / build-product discipline |
+| [`feature-boundary`](skills/feature-boundary) | Strict core vs shell package rules (pure reducer, ports, no UI in core) |
 | [`nextjs-app-router-composition`](skills/nextjs-app-router-composition) | Colocated route groups — `(components)`, `(hooks)`, `(constants)` — for thin App Router pages |
 | [`nextjs-design-system`](skills/nextjs-design-system) | Tailwind + shadcn-based UI conventions, tokens, motion |
 | [`nextjs-i18n`](skills/nextjs-i18n) | next-intl conventions for translatable copy |
@@ -59,6 +64,15 @@ and unconditional on purpose.
 | [`expo-i18n`](skills/expo-i18n) | react-i18next conventions for translatable copy |
 | [`expo-shadcn-design-system`](skills/expo-shadcn-design-system) | Porting shadcn/ui components to React Native |
 | [`expo-mobile-distribution`](skills/expo-mobile-distribution) | EAS build + Fastlane/eas submit → TestFlight/Play |
+
+### SSOT / parity pack
+
+`core-spec`, `ssot-dev-loop`, `parity-gates`, and `feature-boundary` are a
+matched set: format → process → gates → package geometry. Use them together
+when you want AI-assisted work to maintain a portable behavior kernel (any
+host language) instead of drifting into UI-first edits. Generalized from
+reducer-first / parity-corpus patterns; follow a project's own `AGENTS.md` +
+`parity/` paths when present.
 
 The `nextjs-*` and `expo-*` skills are deliberately parallel by concern
 (composition / i18n / design-system) rather than merged — same naming
